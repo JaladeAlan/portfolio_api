@@ -152,4 +152,25 @@ class ProjectController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Project deleted']);
     }
+
+     /**
+     * @OA\Get(
+     *     path="/api/projects/{id}",
+     *     summary="Get a single project",
+     *     tags={"Projects"},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Project details"),
+     *     @OA\Response(response=404, description="Project not found")
+     * )
+     */
+    public function show($id)
+    {
+        $project = Project::findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'project' => $project
+        ]);
+    }
+
 }
